@@ -1,12 +1,11 @@
 require 'docking_station'
+require 'bike'
 
 describe DockingStation do
   it "responds to release_bike" do
     instance = DockingStation.new
     expect(instance).to respond_to(:release_bike)
   end
-
-
   # it { is_expected.to respond_to release_bike }
 
   describe '#release_bike' do
@@ -16,6 +15,15 @@ describe DockingStation do
       #release docked bike
       expect { subject.release_bike }.to raise_error "No bikes available"
     end
+
+
+     it "does not release bike if bike is broken" do
+       bike = Bike.new
+       bike.report_broken
+       subject.dock(bike)
+       # expect(subject).to raise_error("No bikes available")
+       expect { subject.not_to respond_to(:release_bike) }
+     end
   end
 
   describe '#dock' do
@@ -44,5 +52,5 @@ describe DockingStation do
       # 3. then it tells us whether there is at least 1 bike:
       expect(subject.bikes).not_to be_empty
     end
-  end
+    end
 end
