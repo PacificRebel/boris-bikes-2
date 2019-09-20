@@ -5,6 +5,8 @@ describe DockingStation do
     instance = DockingStation.new
     expect(instance).to respond_to(:release_bike)
   end
+
+
   # it { is_expected.to respond_to release_bike }
 
   describe '#release_bike' do
@@ -20,7 +22,7 @@ describe DockingStation do
     it { is_expected.to respond_to(:dock).with(1).argument }
 
       it "raises an error when the dock is full" do
-        20.times { subject.dock(Bike.new) }
+        DEFAULT_CAPACITY.times { subject.dock(Bike.new) }
         expect { subject.dock Bike.new }.to raise_error "Docking station is full"
       end
   #   instance = DockingStation.new.dock(Bike.new)
